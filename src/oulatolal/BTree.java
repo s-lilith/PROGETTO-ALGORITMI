@@ -40,17 +40,17 @@ public class BTree extends StrutturaDati{
 		}
 		
 		//cerca il film in base al nome
-		public Node search(Node t, Movie k) {
+		public Node search(Node t, Movie movie) {
 			int cmp = 0;
 			if (t==null) return t;
-			if (t.movie.getTitle()==k.getTitle())
+			if (t.movie.getTitle()==movie.getTitle())
 				return t;
 			else {
-				cmp = t.compareTo(k);
-				if (cmp <1)
-					return search(t.children[0], k);
+				cmp = t.compareTo(movie);
+				if (cmp < 1)
+					return search(t.children[0], movie);
 				else
-					 return search(t.children[1], k);
+					 return search(t.children[1], movie);
 			}
 		}
 		//Cerca il film più "grande" nel ramo sinistro
@@ -58,11 +58,9 @@ public class BTree extends StrutturaDati{
 		Node searchBiggestMovie(Node t) {
 			int cmp = 0;
 			if (t==null) {
-				System.out.println("sono null");
 				return t;
 			}
 			else {
-				System.out.println("non sono null");
 				cmp = t.compareTo(t.movie);
 				if (cmp < 1) {
 					if (t.children[0]!=null)
@@ -79,11 +77,9 @@ public class BTree extends StrutturaDati{
 		Node searchSmallestMovie(Node t) {
 			int cmp = 0;
 			if (t==null) {
-				System.out.println("sono null");
 				return t;
 			}
 			else {
-				System.out.println("non sono null");
 				cmp = t.compareTo(t.movie);
 				if (cmp > 1) {
 					if (t.children[1]!=null)
@@ -94,10 +90,11 @@ public class BTree extends StrutturaDati{
 					return t;
 			}
 		}
-	    
+
+		 
 			public Node deleteMovie(Node t, Movie target) {
 			int cmp = 0;
-			if (t==null) return t;
+			if (t==null) return null;
 			cmp = t.compareTo(target);
 			if (cmp < 1) {
 				t.children[0] = deleteMovie(t.children[0], target);
@@ -106,35 +103,44 @@ public class BTree extends StrutturaDati{
 				t.children[1] = deleteMovie(t.children[1], target);
 			//il nodo da cancellare si trova nel ramo dei children
 			}
+			
 			else {
-				//in pointer_target è salvato il node, in cui è presente il 
-				//dato che è il risulto della funzione search
+				//in t è salvato il nodo che voglio cancellare, che è il risultato della funzione search
+				//guardo poi i vari casi
 				t = search(t, target);
 				if (t!=null) {
+					//se t è un nodo foglia
 					if ((t.children[0]==null)&& (t.children[1]==null)){
 						t = null;
+					
+						//se t ha entrambi i figli
 					} else if ((t.children[0]!=null) && (t.children[1]!=null)) {
+						System.out.println("ho entrambi i figli");
 						Node tmp = t;
 						//decido arbitrariamente che scelgo Inorder predecessor (max, from "left subtree")
-						Node pointer_target = searchBiggestMovie(t.children[0]);
-						if (pointer_target==null) {
+						Node pointer_target = searchBiggestMovie(tmp.children[0]);
+						System.out.println(searchBiggestMovie(t.children[0]).movie.getTitle()+ " sono pointer");
+						if (pointer_target!=null) {
+							t.movie = pointer_target.movie;
+							t.children[0] = deleteMovie(t.children[0], pointer_target.movie);
 						}
-						t.movie = pointer_target.movie;
-						t.children[0] = deleteMovie(t.children[0], pointer_target.movie);
 					}
+					//altrimenti se t ha un figlio dx o sx
 					else {
 						//il nodo che vogliamo cancellare o ha un figlio sx o dx
-						cmp = t.compareTo(target);
-						if (cmp < 1) {
+						if (t.children[0]!=null) {
 							t = t.children[0];
 						}
-						else {
+						if (t.children[1]!=null) {
 							t = t.children[1];
 						}
 					}
 				}
-				
 			}
+			//E' un po' brutto gestirlo così, vedo se riesco a sistemarlo meglio.
+			if (t==null)
+				if(!(isEmpty()))
+					this.root = null;
 			return t;
 		}
 	
@@ -174,7 +180,7 @@ public class BTree extends StrutturaDati{
 			}
 		}
 		
-	
+		//ritorna il numero di nodi diversi da null che sono presenti all'interno dell'albero
 		public int CountNodes(Node t) {
 			if (t==null) return 0;
 			else {
@@ -184,7 +190,7 @@ public class BTree extends StrutturaDati{
 		
 
 		//questa funzione, inserisce i film nell'array
-		//(?) versione preorder
+		//ricorsivamente, uso una funzione d'appoggio calculateIndex 
 		public void getMovies_array(Node t, Movie[] array, int index) {
 			if (t==null) return;
 			else {
@@ -211,8 +217,7 @@ public class BTree extends StrutturaDati{
 			InsertMovie(this.root, movie);
 		}
 		
-	
-
+		
 		@Override
 		public void delete(Movie movie) {
 			// TODO Auto-generated method stub
@@ -220,15 +225,15 @@ public class BTree extends StrutturaDati{
 			
 		}
 
+		//questa funzione restituisce tutti i film presenti nell'albero. 
+		//Crea un vettore che ha lunghezza pari al numero di nodi presente nell'albero
+		//chiama la funzioen getArray e restituisce il vettore con i film salvati
 		@Override
 		public Movie[] getMovies() {
 			// TODO Auto-generated method stub
 			Movie result[] = new Movie[CountNodes(this.root)];
 			getMovies_array(this.root, result, calculateIndex(result));
-			if (result!=null) {
-				return result;
-			}
-			return null;
+			return result;
 		}
 
 		//tutte le informazioni caricate sul btree vengono cancellate
@@ -238,8 +243,10 @@ public class BTree extends StrutturaDati{
 			Movie[] result = getMovies();
 			for (int i=0; i<result.length; i=i+1) {
 				deleteMovie(this.root, result[i]);
+				if(search(this.root, result[i])==null) {
+					System.out.println(result[i].getTitle() + " "+ i+ " "+ "E' stato cancellato");
+				}
 			}
-			
 		}
 
 		@Override
@@ -249,7 +256,9 @@ public class BTree extends StrutturaDati{
 			if (t!=null)
 				return t.movie;
 			return null;
-		}			
+		}
+		
+	
 		
 	}
 
