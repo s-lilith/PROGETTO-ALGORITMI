@@ -1,11 +1,8 @@
-package oulatolal;///si trova nella versione 17
+package oulatolal;
 
 import java.io.File;
 
 import commons.Person;
-
-//devo ricordarmi nel file di testo di aggiungere uno spazio bianco alla fine della riga
-//oppure provare ad aggiustare la cosa in un altro modo
 
 public class main {
 
@@ -16,21 +13,15 @@ public class main {
 			
 			//prova
 			Person p1 = new Person ("Sela Ward");
-			//CountPeople
-			System.out.println("Sono countPeople(), dovrebbe essere 41, dal txt di prova:"+movida.countPeople());
-			
-			//CountMovies (dal file di partenza sono 10)
-			System.out.println(movida.countMovies() + "sono conta film");
-			
-			//GetAllMovies
+
+			//GetAllMovies 
+			System.out.println("Prova con getAllMovies");
 			for(int i=0; i<movida.getAllMovies().length; i=i+1) {
 				System.out.println(movida.getAllMovies()[i].getTitle()+ " " + i);
 			}
-			System.out.println("\n");
-			
 			
 			//getAllPeople - testato - ok
-			System.out.println("getAllPeople");
+			System.out.println("Prova con getAllPeople");
 			for (int i=0; i<movida.getAllPeople().length; i=i+1) {
 				System.out.println(movida.getAllPeople()[i].getName()+ " " + i);
 			}
@@ -41,14 +32,12 @@ public class main {
 			for (int i=0; i<movida.searchMoviesInYear(1954).length; i=i+1) {
 				System.out.println(movida.searchMoviesInYear(1954)[i].getTitle()+ " " + i);
 			}
-			System.out.println("\n");
 			
 			//searchMoviesByTitle - testato ok
 			System.out.println("SearchMoviesByTitle");
 			for (int i=0; i<movida.searchMoviesByTitle("ciao").length; i=i+1) {
 				System.out.println(movida.searchMoviesByTitle("ciao")+ " " + i);
 			}
-			System.out.println("\n");
 
 			//////////////////prova con graph
 			
@@ -64,7 +53,6 @@ public class main {
 				System.out.println(movida.getTeamOf(p1)[i].getName());
 			}
 			
-
 	}
 
 }
