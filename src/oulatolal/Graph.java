@@ -22,22 +22,22 @@ public class Graph {
 		 graph.put(p, new ArrayList<Collaboration>());	 
 	 }
 
-	 public void insertMovieGraph(Movie m) {
+		 public void insertMovieGraph(Movie m) {
 		 for (int i=0; i<m.getCast().length; i=i+1) {
 			 for (int j=0; j<m.getCast().length; j=j+1) {
 				 if (m.getCast()[i].equals(m.getCast()[j])) {
 					 for (int k=0; k<m.getCast().length; k=k+1) {
 						 if (!(m.getCast()[i].equals(m.getCast()[k]))) {
-							 setCollaborations(m.getCast()[i], m.getCast()[k]);
+							 setCollaborations(m.getCast()[i], m.getCast()[k], m);
+							 }
 						 }
 					 }
-				 }
+			 	}
 			 }
-		 }
-	 }
+	 	}
 	 
 	 
-	 public void setCollaborations(Person p, Person p1) {
+	 public void setCollaborations(Person p, Person p1, Movie m) {
 	    if (!(graph.containsKey(p))) {
 	    	addNode(p);
 	    }
@@ -47,8 +47,10 @@ public class Graph {
 	    Collaboration collaboration = new Collaboration(p, p1);
 	    graph.get(p).add(collaboration);
 	    graph.get(p1).add(collaboration);
+	    collaboration.addMovie(m);
 	 }
 
+	
 	public Person[] getCollaborators (Person actor) {
 		Person[] people = null;
 		ArrayList<Person> tmp = new ArrayList<>();
