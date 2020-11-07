@@ -32,4 +32,18 @@ public class Collaboration {
 		return score / movies.size();
 	}
 	
+	
+	
+	
+	//metodi aggiuntivi
+	public ArrayList<Movie> getMovies() {
+		return movies;
+	}
+
+	public void addMovie(Movie m){
+		this.movies.add(m);
+	}
+
+	
+
 }
