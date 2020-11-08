@@ -87,6 +87,12 @@ public class Graph {
 	}
 	
 	
+	
+	
+	////////////////////////////////////da guardare un po' meglio ///////////////////////// 
+	/**
+	La funzione funziona e se ho capito bene la consegna, fa quello che dovrebbe fare, però non mi convince la struttura del codice. 
+	*/
 	public Person [] getTeam(Person actor) {
 		ArrayList<Person []> tmp = new ArrayList<>();
 		ArrayList<Person> tmp_people = new ArrayList<>();
