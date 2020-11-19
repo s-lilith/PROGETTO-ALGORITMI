@@ -33,13 +33,7 @@ public class Graph {
 	}
 
 
-	/**
-	 * Idea: aggiungere i nodi al grafo
-	 * controllare se ci sono collaborazioni, se ci sono, bene, altrimenti vengono aggiunte
-	 * (ricontrollareeee))
-	 * @param p
-	 * @param p1
-	 */
+	
 	public void insertMovieGraph(Movie m) {
 		for (int i=0; i<m.getCast().length; i=i+1) {
 			for (int j=0; j<m.getCast().length; j=j+1) {
