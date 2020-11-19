@@ -33,14 +33,20 @@ public class Graph {
 	}
 
 
-	
-	public void insertMovieGraph(Movie m) {
-		for (int i=0; i<m.getCast().length; i=i+1) {
-			for (int j=0; j<m.getCast().length; j=j+1) {
-				if (m.getCast()[i].equals(m.getCast()[j])) {
-					for (int k=0; k<m.getCast().length; k=k+1) {
-						if (!(m.getCast()[i].equals(m.getCast()[k]))) {
-							setCollaborations(m.getCast()[i], m.getCast()[k], m);
+	/**
+	 * Idea: aggiungere i nodi al grafo
+	 * controllare se ci sono collaborazioni, se ci sono, bene, altrimenti vengono aggiunte
+	 * (ricontrollareeee))
+	 * @param p
+	 * @param p1
+	 */
+	public void insertMovieGraph(Movie movie) {
+		for (int i=0; i<movie.getCast().length; i=i+1) {
+			for (int j=0; j<movie.getCast().length; j=j+1) {
+				if (movie.getCast()[i].equals(movie.getCast()[j])) {
+					for (int k=0; k<movie.getCast().length; k=k+1) {
+						if (!(movie.getCast()[i].equals(movie.getCast()[k]))) {
+							setCollaborations(movie.getCast()[i], movie.getCast()[k], movie);
 						}
 					}
 				}
@@ -136,6 +142,7 @@ public class Graph {
 		}
 		return team_result;
 	}
+
 
 
 
