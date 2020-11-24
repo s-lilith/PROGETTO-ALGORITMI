@@ -59,7 +59,7 @@ public class MovidaCore implements IMovidaDB, IMovidaSearch, IMovidaConfig, IMov
 			sorting_algorithm2 = new MergeSort();
 		}
 		else {
-			System.out.println("L'algoritmo scelto non Ã¨ presente");
+			System.out.println("L'algoritmo scelto non è presente");
 		}
 		return false;
 	}
@@ -73,7 +73,7 @@ public class MovidaCore implements IMovidaDB, IMovidaSearch, IMovidaConfig, IMov
 		//else if (m==MapImplementation.ListaNonOrdinata && this.movies instanceof LinkedList)
 				//this.movies = new LinkedList();
 		else {
-			System.out.println("L'implementazione passata non Ã¨ corretta!");
+			System.out.println("L'implementazione passata non è corretta!");
 		}
 		return false;
 	}
@@ -279,7 +279,7 @@ public class MovidaCore implements IMovidaDB, IMovidaSearch, IMovidaConfig, IMov
 						//creo il vettore di lunghezza commas+1 per il cast
 						Person cast[] = new Person[commas+1];
 						cast_array = cast_string.split(", "); //<--- serve per separare i valori 
-						//dalle virgole. E' importante che sia virgola e spazio, perchÃ© altrimenti
+						//dalle virgole. E' importante che sia virgola e spazio, perché altrimenti
 						//ci sono problemi con l'hashcode 
 			
 						for (int i=0; i<commas+1; i=i+1) {

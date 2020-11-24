@@ -3,151 +3,125 @@ package oulatolal;
 import commons.Movie;
 
 public class LinkedList extends StrutturaDati{
-	
-	
-	LinkedList(){
-		
-		this.next=null;
-	}
-	
-	Node next;
-	Movie movie;
-	
-	
-	public Node head=null;
-	public Node tail=null;
-	
-	Node insertMovie(Node t, Movie m) {
-		
-		if(t==null) {
-			t=new Node();
-			t.movie=m;
-			//controllo se la lista √® vuota
-			if(head==null) head=t;
-		}
-		else {
-			//voglio mettere in ordine alfabetico i film in base al titolo
-			//in modo da avere una lista orinata
-			int cmp=t.compareTo(m);
-			//se l'oggetto in questione √® pi√π piccolo di quello con cui viene confrontato
-			if(cmp<1)
-				t.children[0]=insertMovie(t.children[0],m);
-			else
-				t.children[1]=insertMovie(t.children[1],m);
-		}
-		return t;
-	}
-	
-	public Node search(Node t, Movie target) {
-		int cmp=0;
-		if(t==null) return t;
-		if(t.movie.getTitle()==target.getTitle()) return t;
-		else {
-			cmp=t.compareTo(target);
-			if(cmp<1) return search(t.children[0],target);
-			else return search(t.children[1], target);
-		}
-	}
-	
-	//funzione per eliminare un nodo 
-	public Node removeMovie(Node t, Movie m) {
-		int cmp=0;
-		if (head==null) return null;
-		
-		//scendo tutta la lista in cerca del nodo giusto
-		cmp=t.compareTo(m);
-		if(cmp<1)
-			t.children[0]=removeMovie(t.children[0],m);
-		else
-			t.children[1]=removeMovie(t.children[1],m);
-		return t;
-	}
-	
-	//funzione per riordinare la lista
-	void inorderMovie(Node t) {
-		if (t==null) return;
-		for (int i=0; i<t.order_M/2; i=i+1) {
-			inorderMovie(t.children[i]);
-		}
-			System.out.println(t.movie.getTitle());
-			//System.out.println(t.movie.getYear());
-			//System.out.println(t.movie.getVotes());	
-			//for (int i=0; i<t.movie.getCast().length; i=i+1) {
-			//	System.out.println(t.movie.getCast()[i].getName());
-			//}
-			//System.out.println(t.movie.getDirector().getName());	
-		
-		for (int i=t.order_M/2; i<t.order_M; i=i+1) {
-			inorderMovie(t.children[i]);
-		}
-	}
-	
-	//funzione per inserire i film in un array
-	public void getMoviesInArray(Node t, Movie[] array, int i) {
-		if(t==null) return;
-		else {
-			array[i]=t.movie;
-			getMoviesInArray(t.children[0],array, whichIndex(array));
-			getMoviesInArray(t.children[1],array, whichIndex(array));
-		}
-	}
-	
-	public int whichIndex(Movie[]array) {
-		int ind=0;
-		for(int i=0;i<array.length;i++) {
-			ind=i;
-		}
-		return ind;
-	}
-	
-	public void clearMovies() {
-		head=null;
-	}
 
+  private NodeLinkedList head, tail;
+  
+  public LinkedList() {
+	  makeEmpty();
+  }
+  
+  public void makeEmpty() {
+	  head=tail=new NodeLinkedList();
+  }
+  
+  public boolean isEmpty() {
+	  return(head==tail);
+  }
+  
+  //inserisco film all'inizio dello lista se questa Ë vuota
+  //altrimenti lo inserisco come nodo successivo
+  public void insertMovie(Movie m) {
+	  if(isEmpty()) {
+	  //inserisco film nell'header
+	  head.setMovie(m);
+	  //Nodo con due riferimenti null
+	  NodeLinkedList newNode= new NodeLinkedList();
+	  //collego nodo a header
+	  newNode.setNext(head);
+	  head=newNode;
+	  }
+	  else {
+		  tail.setNext(new NodeLinkedList(m,null));
+		  tail=tail.getNext();
+	  }
+  }
+  
+  //elimina partendo dall'ultimo nodo
+  public Movie deleteMovie() throws EmptyLinkedListException {
+	  Movie m=getLastFilm();
+	  //cerco fino ad arrivare al penultimo nodo
+	  NodeLinkedList temp=head;
+	  while (temp.getNext()!=tail)
+		  temp=temp.getNext();
+	  tail=temp;
+	  tail.setNext(null);
+	  return m;
+  }
+  
+  public Movie deleteFirstMovie() throws EmptyLinkedListException {
+	  Movie m= getFirstFilm();
+	  
+	  head=head.getNext();
+	  head.setMovie(null);
+	  return m;
+  }
+  
+  public Movie getFirstFilm() throws EmptyLinkedListException {
+	  if(isEmpty())
+		  throw new EmptyLinkedListException();
+	  return head.getNext().getMovie();
+  }
+  
+  public Movie getLastFilm() throws EmptyLinkedListException {
+	  if(isEmpty())
+		  throw new EmptyLinkedListException();
+	  return tail.getMovie();
+  }
+  
+  //search
+  public Movie search(NodeLinkedList n, Movie m) {
+	  if(isEmpty()) {
+		  return null;
+	  }
+	  //se non Ë presente iÚ che cerco
+		/*
+		 * if(m!=m.getTitle()) { throw new Exception("Invalid Movie."); }
+		 */
+	  NodeLinkedList current=head;
+	  while(current!=null) {
+		  if(n.getMovie().getTitle()==m.getTitle())
+			/*  current=m.getTitle();
+			  return current.getMovie();
+		  current=current.getNext();*/
+	  }
+	  return null;
+  }
+  
+  //da lista ad array
+  
+  
+  
+	
 	@Override
 	public void insert(Movie movie) {
-
-		insertMovie(this.head,movie);
+		// TODO Auto-generated method stub
+		
 	}
 
 	@Override
 	public Movie searchMovie(Movie movie) {
-	
-		Node n=search(this.head, movie);
-		if(n!=null)return n.movie;
+		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public void delete(Movie movie) {
+		// TODO Auto-generated method stub
 		
-		removeMovie(this.head, movie);
 	}
 
 	@Override
 	public Movie[] getMovies() {
 		// TODO Auto-generated method stub
-		
 		return null;
 	}
 
 	@Override
 	public void clear() {
-		clearMovies();
+		// TODO Auto-generated method stub
 		
 	}
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+		
 }
