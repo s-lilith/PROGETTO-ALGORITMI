@@ -73,18 +73,23 @@ public class LinkedList extends StrutturaDati{
 	  if(isEmpty()) {
 		  return null;
 	  }
-	  //se non è presente iò che cerco
-		/*
-		 * if(m!=m.getTitle()) { throw new Exception("Invalid Movie."); }
-		 */
+	  //se non è presente ciò che cerco
+		
+		  if(n.getMovie().getTitle()!=m.getTitle()) { throw new Exception("Invalid Movie."); }
+		 
+		  for(Movie movie:m) {
+			  if(movie.getTitle().equals(n)) {
+				  return movie;
+			  }
+		  }
+		  return null;
+		  
+		  /*
 	  NodeLinkedList current=head;
-	  while(current!=null) {
-		  if(n.getMovie().getTitle()==m.getTitle())
-			/*  current=m.getTitle();
-			  return current.getMovie();
-		  current=current.getNext();*/
-	  }
-	  return null;
+		 * while(current!=null) { if(n.getMovie().getTitle()==m.getTitle())
+		 * current=m.getTitle(); return current.getMovie(); current=current.getNext(); }
+		 * return null;
+		 */
   }
   
   //da lista ad array
