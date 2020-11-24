@@ -69,51 +69,71 @@ public class LinkedList extends StrutturaDati{
   }
   
   //search
-  public Movie search(NodeLinkedList n, Movie m) throws Exception {
+  public Movie search(NodeLinkedList n, Movie m){
 	  if(isEmpty()) {
 		  return null;
 	  }
-	  //se non è presente ciò che cerco
 		
-		  if(n.getMovie().getTitle()!=m.getTitle()) { 
-			  throw new Exception("Invalid Movie."); 
+		/*
+		 * if(n.getMovie().getTitle()!=m.getTitle()) { throw new
+		 * Exception("Invalid Movie."); } else {
+  }
+		 */
+			  while(n.movie.getTitle()!=m.getTitle()) {
+				 int cmp=n.compareTo(n.movie);
+				 if(cmp!=0) {
+					 System.out.println("Invalid Movie.");
+				 }
+				 else 
+					 return n.movie;
 			  }
-		  else return m;
-			
+			return m;
+
   }
   
-  //da lista ad array
-  
+  //inserimento film in array
+  public void getMovies_array(NodeLinkedList n, Movie[] array) {
+	  
+  }
   
   
 	
 	@Override
 	public void insert(Movie movie) {
 		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public Movie searchMovie(Movie movie) {
-		// TODO Auto-generated method stub
-		return null;
+		insertMovie(movie);
 	}
 
 	@Override
 	public void delete(Movie movie) {
 		// TODO Auto-generated method stub
+		try {
+			deleteMovie();
+		} catch (EmptyLinkedListException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	@Override
+	public Movie searchMovie(Movie movie){
+		// TODO Auto-generated method stub
+		
+		return null;
 		
 	}
 
 	@Override
 	public Movie[] getMovies() {
 		// TODO Auto-generated method stub
+		
 		return null;
 	}
 
 	@Override
 	public void clear() {
 		// TODO Auto-generated method stub
+		//ciclo in cui prendo i film da get movie poi li elimino uno a uno
 		
 	}
 	
