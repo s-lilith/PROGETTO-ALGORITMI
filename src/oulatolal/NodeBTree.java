@@ -2,7 +2,7 @@ package oulatolal;
 
 import commons.Movie;
 
-public class NodeBTree implements Comparable{
+public class NodeBTree implements Comparable<Object>{
 	int order_M=2;
 	NodeBTree[] children = new NodeBTree [order_M];
 	Movie movie;
