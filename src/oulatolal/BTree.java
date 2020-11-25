@@ -32,7 +32,7 @@ public class BTree extends StrutturaDati{
 			return t;
 		}
 		
-		boolean isEmpty() { //controlla se il puntatore root è null
+		boolean isEmpty() { //controlla se il puntatore root Ã¨ null
 			boolean check = false;
 			if (root ==null)
 				check = true;
@@ -53,7 +53,7 @@ public class BTree extends StrutturaDati{
 					 return search(t.children[1], k);
 			}
 		}
-		//Cerca il film più "grande" nel ramo sinistro
+		//Cerca il film piÃ¹ "grande" nel ramo sinistro
 		//INORDER PREDECESSOR
 		NodeBTree searchBiggestMovie(NodeBTree t) {
 			int cmp = 0;
@@ -74,7 +74,7 @@ public class BTree extends StrutturaDati{
 			}
 		}
 		
-		//funzione che cerca il film più "piccolo" nel ramo destro
+		//funzione che cerca il film piÃ¹ "piccolo" nel ramo destro
 		//INORDER SUCCESSOR
 		NodeBTree searchSmallestMovie(NodeBTree t) {
 			int cmp = 0;
@@ -107,8 +107,8 @@ public class BTree extends StrutturaDati{
 			//il nodo da cancellare si trova nel ramo dei children
 			}
 			else {
-				//in pointer_target è salvato il NodeBTree, in cui è presente il 
-				//dato che è il risulto della funzione search
+				//in pointer_target Ã¨ salvato il NodeBTree, in cui Ã¨ presente il 
+				//dato che Ã¨ il risulto della funzione search
 				t = search(t, target);
 				if (t!=null) {
 					if ((t.children[0]==null)&& (t.children[1]==null)){
@@ -135,6 +135,9 @@ public class BTree extends StrutturaDati{
 				}
 				
 			}
+			if (t==null)
+				if(!(isEmpty()))
+					this.root = null;
 			return t;
 		}
 	
@@ -195,7 +198,7 @@ public class BTree extends StrutturaDati{
 		}
 		
 		//questa funzione restituisce l'indice i-esimo del vettore e controlla
-		//se è null o meno e se è null, posso inserire il film
+		//se Ã¨ null o meno e se Ã¨ null, posso inserire il film
 		public int calculateIndex(Movie [] array) {
 			int index = 0;
 			for (int i=0; i<array.length; i=i+1) {
