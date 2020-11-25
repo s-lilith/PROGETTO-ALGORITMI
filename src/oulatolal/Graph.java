@@ -3,11 +3,7 @@ package oulatolal;
 import commons.Person;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.HashMap;
-import java.util.List;
-import java.util.AbstractCollection;
 import commons.Collaboration;
 import commons.Movie;
 
