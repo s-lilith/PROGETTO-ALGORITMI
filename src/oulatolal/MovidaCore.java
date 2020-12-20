@@ -59,7 +59,7 @@ public class MovidaCore implements IMovidaDB, IMovidaSearch, IMovidaConfig, IMov
 			sorting_algorithm2 = new MergeSort();
 		}
 		else {
-			System.out.println("L'algoritmo scelto non è presente");
+			System.out.println("L'algoritmo scelto non Ã¨ presente");
 		}
 		return false;
 	}
@@ -73,7 +73,7 @@ public class MovidaCore implements IMovidaDB, IMovidaSearch, IMovidaConfig, IMov
 		//else if (m==MapImplementation.ListaNonOrdinata && this.movies instanceof LinkedList)
 				//this.movies = new LinkedList();
 		else {
-			System.out.println("L'implementazione passata non è corretta!");
+			System.out.println("L'implementazione passata non Ã¨ corretta!");
 		}
 		return false;
 	}
@@ -93,9 +93,8 @@ public class MovidaCore implements IMovidaDB, IMovidaSearch, IMovidaConfig, IMov
 			for (int i=0; i<tmpResult.size(); i=i+1) {
 			resultSearched[i] = tmpResult.get(i);
 			}
-		return resultSearched;
-		} else
-			return null;
+		} 
+			return resultSearched;
 	}
 
 	
@@ -279,7 +278,7 @@ public class MovidaCore implements IMovidaDB, IMovidaSearch, IMovidaConfig, IMov
 						//creo il vettore di lunghezza commas+1 per il cast
 						Person cast[] = new Person[commas+1];
 						cast_array = cast_string.split(", "); //<--- serve per separare i valori 
-						//dalle virgole. E' importante che sia virgola e spazio, perché altrimenti
+						//dalle virgole. E' importante che sia virgola e spazio, perchÃ© altrimenti
 						//ci sono problemi con l'hashcode 
 			
 						for (int i=0; i<commas+1; i=i+1) {
@@ -294,8 +293,7 @@ public class MovidaCore implements IMovidaDB, IMovidaSearch, IMovidaConfig, IMov
 						vote_string = vote_string.replaceAll(" + ", " "); 
 			       
 						int vote_integer = Integer.parseInt(vote_string);
-						String whitespace = scan.nextLine();
-						System.out.println(whitespace);
+						String whitespace = scan.nextLine(); //anche se il programma suggerisce di cancellarlo, no, non si deve cancellare la riga
 			
 						movie[k] = new Movie(title_string,year_integer,vote_integer,cast, director);
 
@@ -350,68 +348,62 @@ public class MovidaCore implements IMovidaDB, IMovidaSearch, IMovidaConfig, IMov
 				conta = result[i].getCast().length + conta;
 				conta = conta+1;
 			}
-				
-			return conta;
 		}
-		else  
-			return 0;
-		
+			return conta;	
 	}
 
 	@Override
 	public boolean deleteMovieByTitle(String title) {
 		// TODO Auto-generated method stub
 		Movie [] result = movies.getMovies();
-		
+		boolean deleted = false;
 		if (result!=null) {
 			for (int i=0; i<result.length; i=i+1) {
 				if (result[i].getTitle().equals(title)) {
 						movies.delete(result[i]);
 					if (movies.searchMovie(result[i])==null)
-					return true;
+					deleted =  true;
 				}
 			}
 		}
-		return false;
+		return deleted;
 	}
 
 	@Override
 	public Movie getMovieByTitle(String title) {
 		// TODO Auto-generated method stub
 		Movie[] result = movies.getMovies();
+		Movie movie_result = null;
 		if (result!=null) {
 			for (int i=0; i<result.length; i=i+1) {	
 				if (result[i].getTitle().equals(title))
-					return result[i];	
+					movie_result =  result[i];	
 					}
 			} 
-		return null;
+		return movie_result;
 	}
 
 	@Override
 	public Person getPersonByName(String name) {
 		// TODO Auto-generated method stub
 		Movie [] result = movies.getMovies();
+		Person person_result = null;
 		if (result!=null) {
 			for (int i=0; i<result.length; i=i+1) {
 				for (int j=0; j<result[i].getCast().length; j=j+1) {
 					if (result[i].getCast()[j].getName().equals(name))
-						return result[i].getCast()[j];
+						person_result = result[i].getCast()[j];
 				}
 			}
 		}
-		return null;
+		return person_result;
 	}
 
 	@Override
 	public Movie[] getAllMovies() {
 		// TODO Auto-generated method stub
 		Movie[] result = movies.getMovies();
-		if (result!=null) {
 			return result;
-		}
-		else
-			return null;
 	}
 
 	
@@ -430,9 +422,8 @@ public class MovidaCore implements IMovidaDB, IMovidaSearch, IMovidaConfig, IMov
 			people[k] = movies.getMovies()[i].getDirector();
 			k=k+1;
 			}
-		return people;
 		}
-		return null;
+		return people;
 	}
 	
 
