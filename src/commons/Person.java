@@ -12,12 +12,12 @@ package commons;
  * Classe usata per rappresentare una persona, attore o regista,
  * nell'applicazione Movida.
  * 
- * Una persona � identificata in modo univoco dal nome 
+ * Una persona ï¿½ identificata in modo univoco dal nome 
  * case-insensitive, senza spazi iniziali e finali, senza spazi doppi. 
  * 
- * Semplificazione: <code>name</code> � usato per memorizzare il nome completo (nome e cognome)
+ * Semplificazione: <code>name</code> ï¿½ usato per memorizzare il nome completo (nome e cognome)
  * 
- * La classe pu� essere modicata o estesa ma deve implementare il metodo getName().
+ * La classe puï¿½ essere modicata o estesa ma deve implementare il metodo getName().
  * 
  */
 public class Person {
@@ -31,5 +31,31 @@ public class Person {
 	public String getName(){
 		return this.name;
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Person other = (Person) obj;
+		if (name == null) {
+			if (other.name != null)
+				return false;
+		} else if (!name.equals(other.name))
+			return false;
+		return true;
+	}
+	
 	
 }
