@@ -12,15 +12,15 @@ package commons;
  * Classe usata per rappresentare un film
  * nell'applicazione Movida.
  * 
- * Un film � identificato in modo univoco dal titolo 
+ * Un film ï¿½ identificato in modo univoco dal titolo 
  * case-insensitive, senza spazi iniziali e finali, senza spazi doppi. 
  * 
- * La classe pu� essere modicata o estesa ma deve implementare tutti i metodi getter
+ * La classe puï¿½ essere modicata o estesa ma deve implementare tutti i metodi getter
  * per recupare le informazioni caratterizzanti di un film.
  * 
  */
 //E' stata aggiunta Comparable per permettere di poter fare confronti con gli oggetti
-public class Movie implements Comparable {
+public class Movie implements Comparable<Object> {
 	
 	private String title;
 	private Integer year;
