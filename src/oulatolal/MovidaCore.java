@@ -152,7 +152,7 @@ public class MovidaCore implements IMovidaDB, IMovidaSearch, IMovidaConfig, IMov
 		if (result!=null) {
 			for (int i=0; i<result.length; i=i+1) {
 				for (int j=0; j<result[i].getCast().length; j=j+1) {
-					if (result[i].getCast()[j].equals(name))
+					if (result[i].getCast()[j].getName().equals(name))
 						tmpResult.add(result[i]);
 				}
 			}
