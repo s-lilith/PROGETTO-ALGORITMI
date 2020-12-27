@@ -329,13 +329,14 @@ public class MovidaCore implements IMovidaDB, IMovidaSearch, IMovidaConfig, IMov
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		//c'è differenza tra print e println (con ln fa new line) 
 		try (PrintWriter pw = new PrintWriter(fw)) {
 			int lunghezzavettorefilm;
 			lunghezzavettorefilm = movies.getMovies().length;
 			String whitespace = "\n";
 			for (int i=0; i<lunghezzavettorefilm; i=i+1) {
 				String title = movies.getMovies()[i].getTitle();
-				pw.print("Title: ");
+				pw.print("Title: "); 
 				pw.println(title);
 				int year = movies.getMovies()[i].getYear();
 				pw.print("Year: ");
@@ -346,6 +347,9 @@ public class MovidaCore implements IMovidaDB, IMovidaSearch, IMovidaConfig, IMov
 				pw.println(director);
 				pw.print("Cast: ");
 				int cast = movies.getMovies()[i].getCast().length;
+				
+				//uso lo stesso gioco delle virgole
+				
 				int commas = cast - 1; 
 				for (int j=0; j<cast; j=j+1) {
 					if (j==cast-1) {
@@ -354,13 +358,13 @@ public class MovidaCore implements IMovidaDB, IMovidaSearch, IMovidaConfig, IMov
 					pw.print(movies.getMovies()[i].getCast()[j].getName());
 					}
 					if (commas!=0) {
-						pw.print(", ");
+						pw.print(", "); //aggiungo lo spazio 
 						commas = commas -1;
 					}
 				} 
 				int votes;
 				votes = movies.getMovies()[i].getVotes();
-				pw.print("Votes:");
+				pw.print("Votes: ");
 				pw.println(votes);
 				pw.print(whitespace);
 
