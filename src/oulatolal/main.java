@@ -9,8 +9,9 @@ public class main {
 	public static void main(String[] args)  {
 		// TODO Auto-generated method stub
 			MovidaCore movida = new MovidaCore();
-			movida.loadFromFile(new File("esempio-formato-dati.txt"));
+			movida.loadFromFile(new File("prova.txt"));
 			
+			movida.saveToFile(new File("prova.txt")); //ok funziona
 			//prova
 			Person p1 = new Person ("Sela Ward");
 
@@ -52,6 +53,8 @@ public class main {
 			for (int i=0; i<movida.getTeamOf(p1).length; i=i+1) {
 				System.out.println(movida.getTeamOf(p1)[i].getName());
 			}
+			
+		
 			
 	}
 
