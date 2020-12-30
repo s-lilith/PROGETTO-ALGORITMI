@@ -56,12 +56,16 @@ public class MovidaCore implements IMovidaDB, IMovidaSearch, IMovidaConfig, IMov
 		// TODO Auto-generated method stub
 		if (a==SortingAlgorithm.BubbleSort) {
 			sorting_algorithm = new BubbleSort();
+			sorting_algorithm.sort(movies.getMovies());
+			return true;
 		}
 		else if (a==SortingAlgorithm.MergeSort) {
 			sorting_algorithm2 = new MergeSort();
+			sorting_algorithm2.sort(movies.getMovies(), movies.getMovies().length);
+			return true;
 		}
 		else {
-			System.out.println("L'algoritmo scelto non Ã¨ presente");
+			System.out.println("L'algoritmo scelto non e' presente");
 		}
 		return false;
 	}
@@ -70,12 +74,16 @@ public class MovidaCore implements IMovidaDB, IMovidaSearch, IMovidaConfig, IMov
 	@Override
 	public boolean setMap(MapImplementation m) {
 		// TODO Auto-generated method stub
-		if (m==MapImplementation.BTree && this.movies instanceof BTree)
+		if (m==MapImplementation.BTree && this.movies instanceof BTree) {
 			this.movies = new BTree();
-		//else if (m==MapImplementation.ListaNonOrdinata && this.movies instanceof LinkedList)
+			return true;
+		}
+		//else if (m==MapImplementation.ListaNonOrdinata && this.movies instanceof LinkedList){
 		//this.movies = new LinkedList();
+		//return true;
+		//}
 		else {
-			System.out.println("L'implementazione passata non Ã¨ corretta!");
+			System.out.println("L'implementazione passata non e' corretta!");
 		}
 		return false;
 	}
@@ -324,7 +332,7 @@ public class MovidaCore implements IMovidaDB, IMovidaSearch, IMovidaConfig, IMov
 					//creo il vettore di lunghezza commas+1 per il cast
 					Person cast[] = new Person[commas+1];
 					cast_array = cast_string.split(", "); //<--- serve per separare i valori 
-					//dalle virgole. E' importante che sia virgola e spazio, perchÃ© altrimenti
+					//dalle virgole. E' importante che sia virgola e spazio, perchÃƒÂ© altrimenti
 					//ci sono problemi con l'hashcode 
 
 					for (int i=0; i<commas+1; i=i+1) {
@@ -369,59 +377,59 @@ public class MovidaCore implements IMovidaDB, IMovidaSearch, IMovidaConfig, IMov
 		FileWriter fw = null;
 		try {
 			try {
-			fw = new FileWriter(f);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		//c'è differenza tra print e println (con ln fa new line) 
-		try (PrintWriter pw = new PrintWriter(fw)) {
-			int lunghezzavettorefilm;
-			lunghezzavettorefilm = movies.getMovies().length;
-			String whitespace = "\n";
-			for (int i=0; i<lunghezzavettorefilm; i=i+1) {
-				String title = movies.getMovies()[i].getTitle();
-				pw.print("Title: "); 
-				pw.println(title);
-				int year = movies.getMovies()[i].getYear();
-				pw.print("Year: ");
-				pw.println(year);
-				String director;
-				pw.print("Director: ");
-				director = movies.getMovies()[i].getDirector().getName();
-				pw.println(director);
-				pw.print("Cast: ");
-				int cast = movies.getMovies()[i].getCast().length;
-				
-				//uso lo stesso gioco delle virgole
-				
-				int commas = cast - 1; 
-				for (int j=0; j<cast; j=j+1) {
-					if (j==cast-1) {
-						pw.println(movies.getMovies()[i].getCast()[j].getName());
-					} else {
-					pw.print(movies.getMovies()[i].getCast()[j].getName());
-					}
-					if (commas!=0) {
-						pw.print(", "); //aggiungo lo spazio 
-						commas = commas -1;
-					}
-				} 
-				int votes;
-				votes = movies.getMovies()[i].getVotes();
-				pw.print("Votes: ");
-				pw.println(votes);
-				pw.print(whitespace);
-
+				fw = new FileWriter(f);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
-			pw.close();
-		}
+
+			try (PrintWriter pw = new PrintWriter(fw)) {
+				int lunghezzavettorefilm;
+				lunghezzavettorefilm = movies.getMovies().length;
+				String whitespace = "\n";
+				for (int i=0; i<lunghezzavettorefilm; i=i+1) {
+					String title = movies.getMovies()[i].getTitle();
+					pw.print("Title: "); 
+					pw.println(title);
+					int year = movies.getMovies()[i].getYear();
+					pw.print("Year: ");
+					pw.println(year);
+					String director;
+					pw.print("Director: ");
+					director = movies.getMovies()[i].getDirector().getName();
+					pw.println(director);
+					pw.print("Cast: ");
+					int cast = movies.getMovies()[i].getCast().length;
+
+					//uso lo stesso gioco delle virgole
+
+					int commas = cast - 1; 
+					for (int j=0; j<cast; j=j+1) {
+						if (j==cast-1) {
+							pw.println(movies.getMovies()[i].getCast()[j].getName());
+						} else {
+							pw.print(movies.getMovies()[i].getCast()[j].getName());
+						}
+						if (commas!=0) {
+							pw.print(", "); //aggiungo lo spazio 
+							commas = commas -1;
+						}
+					} 
+					int votes;
+					votes = movies.getMovies()[i].getVotes();
+					pw.print("Votes: ");
+					pw.println(votes);
+					pw.print(whitespace);
+
+				}
+				pw.close();
+			}
 		} catch (MovidaFileException message) {
 			// TODO Auto-generated catch block
 			System.out.println(message.getMessage());
 		}
 	}
-	
+
 
 	@Override
 	public void clear() {
