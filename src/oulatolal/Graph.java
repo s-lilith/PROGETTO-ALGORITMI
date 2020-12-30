@@ -161,7 +161,7 @@ public class Graph {
 		for (int i=0; i<array_list.size(); i=i+1) {
 			arr[i] = array_list.get(i);
 		}
-		//li voglio ordinare dal più grande al più piccolo 
+		//li voglio ordinare dal piu' grande al piu' piccolo 
 		for (int i= 0; i<arr.length-1; i=i+1) {
 			for (int j=0; j < arr.length-i-1; j=j+1)
 				if ((arr[j].getScore() < arr[j+1].getScore()) || ((arr[j].getScore() == arr[j+1].getScore()))){
@@ -178,7 +178,7 @@ public class Graph {
 	}
 
 	//prim algorithm 
-	//per implementare questa funzione è stato usato l'algoritmo di Prim
+	//per implementare questa funzione e' stato usato l'algoritmo di Prim
 	public Collaboration[] maximizeCollaborationsInTheTeamOf (Person actor) {
 		ArrayList<Person> team = getTeamArrayList(actor);
 		ArrayList<Person> visited = new ArrayList<>();
@@ -191,7 +191,8 @@ public class Graph {
 		
 		Person indexpoint = null;
 		boolean done = false;
-
+		//viene scelto un nodo iniziale da cui partire per poter costruire l'MST
+		//iniziamo con l'attore dato come parametro
 		indexpoint = actor;
 		visited.add(indexpoint);
 		
@@ -206,9 +207,6 @@ public class Graph {
 				for (int i=0; i<adjacent_nodes.size(); i=i+1) {
 					if (!(visited.contains(adjacent_nodes.get(i)))) {
 						
-						//ottengo la lista delle collaborazioni in ordine decescente
-						//(da cui naturalmente posso ottenere i nodi che posso raggiungere
-						
 						for (int j=0; j<visited.size(); j=j+1) {
 							tmp_visited.addAll(getCollaborationlist(visited.get(j)));
 						}
@@ -218,16 +216,18 @@ public class Graph {
 						
 						tmp_indexpoint.addAll(tmp_visited);
 						
+						//ottengo la lista delle collaborazioni in ordine decescente
+						//(da cui naturalmente posso ottenere i nodi che posso raggiungere
 						unreached_nodes = orderCollabs(tmp_indexpoint);
 
 					}
 				}
 				
 				//devo scegliere quale nodo aggiungere al MST
-				//di default scelgo il primo elemento (perché essendo unreached_nodes
+				//di default scelgo il primo elemento (perchÃ© essendo unreached_nodes
 				//una lista ordinata in ordine decrescente, secondo il valore dello score
 				
-				//nel caso il primo elemento della lista ottenuta, faccia già parte
+				//nel caso il primo elemento della lista ottenuta, faccia giÃ  parte
 				//della lista visited, cerco l'elemento che non appartenga a visited
 				boolean found = false;
 				if (!(visited.contains(unreached_nodes.get(0).getActorB()))) {
