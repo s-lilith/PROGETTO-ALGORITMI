@@ -16,7 +16,7 @@ public class NodeBTree implements Comparable<Object>{
 
 	//salvo i film in maniera che ordino i film 
 	//in maniera alfabetica, usando dei compare
-	//che ordinano in modo, appunto alfabetico le stringhe
+	//che ordinano in modo alfabetico le stringhe
 	@Override
 	public int compareTo(Object arg0) {
 		// TODO Auto-generated method stub
