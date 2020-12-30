@@ -3,8 +3,8 @@
 							**CORSO DI ALGORITMI E STRUTTURE DATI**
 
 #Presentato da:
-	-Kusamdevi Lal - Matricola 901475 
-    	-Sharone Oulato 
+-Kusamdevi Lal - Matricola 901475 
+-Sharone Oulato 
 
 
 
