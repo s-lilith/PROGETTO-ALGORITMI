@@ -12,8 +12,8 @@ public class NodeLinkedList implements Comparable{
 	 * Node(int d){ this.data=d; this.next=null; } }
 	 */
 	
-	private Movie movie;
-	private NodeLinkedList next;
+	public Movie movie;
+	public NodeLinkedList next;
 	
 	public NodeLinkedList(Movie m, NodeLinkedList n){
 		this.movie=m;

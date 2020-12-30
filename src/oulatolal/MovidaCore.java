@@ -9,6 +9,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 import commons.Collaboration;
@@ -146,9 +147,9 @@ public class MovidaCore implements IMovidaDB, IMovidaSearch, IMovidaConfig, IMov
 	@Override
 	public Movie[] searchMoviesStarredBy(String name) {
 		// TODO Auto-generated method stub
-		Movie result[] = movies.getMovies();
+		Movie[] result = movies.getMovies();
 		ArrayList<Movie> tmpResult = new ArrayList<>();
-		Movie searchedMovies[];
+		Movie[] searchedMovies;
 		if (result!=null) {
 			for (int i=0; i<result.length; i=i+1) {
 				for (int j=0; j<result[i].getCast().length; j=j+1) {
@@ -192,13 +193,57 @@ public class MovidaCore implements IMovidaDB, IMovidaSearch, IMovidaConfig, IMov
 	@Override
 	public Movie[] searchMostRecentMovies(Integer N) {
 		// TODO Auto-generated method stub
-		return null;
+		Movie[] result= movies.getMovies();
+		Movie tmpResult;
+		Movie[] recentMovies= new Movie[N];
+
+		if(result!=null){
+			int i=0;
+			while (i<result.length) {
+				for(int j=i+1;j<result.length;j++){
+					if (result[i].getYear() < result[j].getYear()) {
+						tmpResult=result[i];
+						result[i]= result[j];
+						result[j]= tmpResult;
+
+					}
+				}
+				i++;
+			}
+			for (int k=0; k<N; k++){
+				recentMovies[k]= result[k];
+
+			}
+			return recentMovies;
+		}else
+			return null;
 	}
+
 
 	@Override
 	public Person[] searchMostActiveActors(Integer N) {
 		// TODO Auto-generated method stub
-		return null;
+		Movie[] result= movies.getMovies();
+		Person[] actors= new Person[countPeople()];
+		Person tmpActiveActors;
+		Person[] activeActors= new Person[N];
+
+		int k=0;
+		if (actors != null) {
+			for (int i=0; i<movies.getMovies().length; i=i+1) {
+				for (int j=0; j<movies.getMovies()[i].getCast().length;j=j+1) {
+					actors[k] = movies.getMovies()[i].getCast()[j];
+					k=k+1;
+				}
+
+			}
+		}
+		return actors;
+
+		//if(result!= null)
+		//else
+
+		//return null;
 	}
 
 
