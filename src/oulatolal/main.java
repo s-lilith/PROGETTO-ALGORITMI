@@ -53,6 +53,14 @@ public class main {
 			for (int i=0; i<movida.getTeamOf(p1).length; i=i+1) {
 				System.out.println(movida.getTeamOf(p1)[i].getName());
 			}
+		
+			//prova con maximizeCollaboration - testato ok 
+			System.out.println("prova con maximize");
+			for (int i=0; i<movida.maximizeCollaborationsInTheTeamOf(p1).length; i=i+1) {
+				System.out.println(movida.maximizeCollaborationsInTheTeamOf(p1)[i].getActorB().getName());
+			}
+			System.out.println("fine prova con maximize");
+			System.out.println("\n");
 
 			//prova con searchMostRecentMovies - testato - ok
 			System.out.println("\n Prova con searchMostRecentMovies");
