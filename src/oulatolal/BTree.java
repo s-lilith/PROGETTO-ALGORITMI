@@ -2,11 +2,7 @@ package oulatolal;
 
 import commons.Movie;
 /**
- * aggiornamento 6 ottobre
- * 	-versione 4 movida
- * 	-forzatura della funzione cancella, vedere se si riesce a fare di meglio
- * 
- *
+ * Implementazione della Struttura Dati BTree
  */
 public class BTree extends StrutturaDati{
 		NodeBTree root;
@@ -16,7 +12,7 @@ public class BTree extends StrutturaDati{
 		}
 
 		NodeBTree InsertMovie(NodeBTree t, Movie k) {
-			int cmp =0;
+			int cmp = 0;
 			if (t==null) {
 				t = new NodeBTree();
 				t.movie = k;
@@ -38,7 +34,7 @@ public class BTree extends StrutturaDati{
 			return t;
 		}
 		
-		boolean isEmpty() { //controlla se il puntatore root è null
+		boolean isEmpty() { //controlla se il puntatore root e' null
 			boolean check = false;
 			if (root ==null)
 				check = true;
@@ -59,7 +55,7 @@ public class BTree extends StrutturaDati{
 					 return search(t.children[1], movie);
 			}
 		}
-		//Cerca il film più "grande" nel ramo sinistro
+		//Cerca il film piu' "grande" nel ramo sinistro
 		//INORDER PREDECESSOR
 		NodeBTree searchBiggestMovie(NodeBTree t) {
 			int cmp = 0;
@@ -78,7 +74,7 @@ public class BTree extends StrutturaDati{
 			}
 		}
 		
-		//funzione che cerca il film più "piccolo" nel ramo destro
+		//funzione che cerca il film piu' "piccolo" nel ramo destro
 		//INORDER SUCCESSOR
 		NodeBTree searchSmallestMovie(NodeBTree t) {
 			int cmp = 0;
@@ -111,11 +107,11 @@ public class BTree extends StrutturaDati{
 			}
 			
 			else {
-				//in t è salvato il nodo che voglio cancellare, che è il risultato della funzione search
+				//in t e' salvato il nodo che voglio cancellare, che e' il risultato della funzione search
 				//guardo poi i vari casi
 				t = search(t, target);
 				if (t!=null) {
-					//se t è un nodo foglia
+					//se t e' un nodo foglia
 					if ((t.children[0]==null)&& (t.children[1]==null)){
 						t = null;
 					
@@ -143,49 +139,12 @@ public class BTree extends StrutturaDati{
 					}
 				}
 			}
-			//E' un po' brutto gestirlo così, vedo se riesco a sistemarlo meglio.
 			if (t==null)
 				if(!(isEmpty()))
 					this.root = null;
 			return t;
 		}
 	
-		
-		void preorderMovie(NodeBTree t) {
-			if (t==null) return;
-			System.out.println(t.movie.getTitle());
-			for (int i=0; i<t.order_M; i=i+1) {
-				preorderMovie(t.children[i]);
-			}
-		}
-	
-		void postorderMovie(NodeBTree t) {
-			if (t==null) return;
-			for (int i=0; i<t.order_M; i=i+1) {
-				postorderMovie(t.children[i]);
-			}
-			System.out.println(t.movie.getTitle());
-		}
-	
-		
-		void inorderMovie(NodeBTree t) {
-			if (t==null) return;
-			for (int i=0; i<t.order_M/2; i=i+1) {
-				inorderMovie(t.children[i]);
-			}
-				System.out.println(t.movie.getTitle());
-				//System.out.println(t.movie.getYear());
-				//System.out.println(t.movie.getVotes());	
-				//for (int i=0; i<t.movie.getCast().length; i=i+1) {
-				//	System.out.println(t.movie.getCast()[i].getName());
-				//}
-				//System.out.println(t.movie.getDirector().getName());	
-			
-			for (int i=t.order_M/2; i<t.order_M; i=i+1) {
-				inorderMovie(t.children[i]);
-			}
-		}
-		
 		//ritorna il numero di nodi diversi da null che sono presenti all'interno dell'albero
 		public int CountNodes(NodeBTree t) {
 			if (t==null) return 0;
@@ -207,7 +166,7 @@ public class BTree extends StrutturaDati{
 		}
 		
 		//questa funzione restituisce l'indice i-esimo del vettore e controlla
-		//se è null o meno e se è null, posso inserire il film
+		//se e' null o meno e se e' null, posso inserire il film
 		public int calculateIndex(Movie [] array) {
 			int index = 0;
 			for (int i=0; i<array.length; i=i+1) {
