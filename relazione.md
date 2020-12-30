@@ -3,7 +3,7 @@
 							**CORSO DI ALGORITMI E STRUTTURE DATI**
 
 Presentato da:
-Kusamdevi Lal
+Kusamdevi Lal \n
 Sharone Oulato
 
 
