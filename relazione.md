@@ -3,8 +3,8 @@
 							**CORSO DI ALGORITMI E STRUTTURE DATI**
 
 #Presentato da:
-	Kusamdevi Lal - Matricola 901475
-    Sharone Oulato 
+	-Kusamdevi Lal - Matricola 901475 
+    	-Sharone Oulato 
 
 
 
@@ -21,9 +21,7 @@ Per l’inserimento dei film, all’interno del’albero, è stata implementata 
 
 Poi sono state implementate le funzioni search, delete, getMovies.
     - Per la funzione search, che prende come parametri di input un nodo e il film, a seconda che la “stringa” di input sia più grande o più piccola, cerca rispettivamente nel ramo dx o sx corrispettivamente.
-
     - Per la funzione delete, si cerca il nodo da cancellare e  si guardano i rispettivi casi, se il nodo non ha figli, si cancella semplicemente il nodo, se il nodo invece ha figli, bisogna cercare il nodo che deve essere sostituito al nodo target.
-
     - La funzione getMovies invece scorre tutto l’albero e memorizza I dati in un array e questo viene dato come risultato della funzione.
 
 La classe “StrutturaDati” è semplicemente una classe astratta che raggruppa le funzioni in comune che possono essere usate da entrambe le strutture dati.
