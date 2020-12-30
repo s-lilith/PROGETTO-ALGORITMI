@@ -4,17 +4,14 @@ import commons.Person;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+
 import commons.Collaboration;
 import commons.Movie;
 
 /**
- * Aggiornamento del 26 ottobre 2020
  * 	G = (V, E), quindi facciamo che i nodi del grafo siano le persone
  * 	mentre gli Edges siano le collaborazioni.
  * 
- * Idea: Fare una lista per gli vertici e fare una lista di edges
- *
- * @author alpaca
  *
  */
 public class Graph {
@@ -29,7 +26,7 @@ public class Graph {
 	}
 
 
-	
+
 	public void insertMovieGraph(Movie movie) {
 		for (int i=0; i<movie.getCast().length; i=i+1) {
 			for (int j=0; j<movie.getCast().length; j=j+1) {
@@ -133,10 +130,137 @@ public class Graph {
 		return team_result;
 	}
 
+	private ArrayList <Person> getTeamArrayList (Person actor){
+		ArrayList<Person> teamarraylist = new ArrayList<>();
+		Person [] team = getTeam(actor);
+		if (team!=null) {
+			for (int i=0; i<team.length; i=i+1) {
+				teamarraylist.add(team[i]);
+			}
+		}
+		return teamarraylist;
+	}
 
 
 
+	private ArrayList<Collaboration> getCollaborationlist (Person p) {
+		ArrayList<Collaboration> result = new ArrayList<>();
+		for (int i=0; i<graph.get(p).size(); i=i+1) {
+			if (graph.get(p).get(i).getActorA().equals(p)) {
+				result.add(graph.get(p).get(i));
+			}
+		}
+		return result;
+	}
 
 
+
+	private ArrayList<Collaboration> orderCollabs (ArrayList<Collaboration> array_list){
+		Collaboration[] arr = new Collaboration[array_list.size()];
+		ArrayList<Collaboration> result = new ArrayList<>();
+		for (int i=0; i<array_list.size(); i=i+1) {
+			arr[i] = array_list.get(i);
+		}
+		//li voglio ordinare dal più grande al più piccolo 
+		for (int i= 0; i<arr.length-1; i=i+1) {
+			for (int j=0; j < arr.length-i-1; j=j+1)
+				if ((arr[j].getScore() < arr[j+1].getScore()) || ((arr[j].getScore() == arr[j+1].getScore()))){
+					Collaboration tmp = arr[j];
+					arr[j] = arr[j+1];
+					arr[j+1] = tmp;
+				}
+		}	
+		for (int i=0; i<arr.length; i=i+1) {
+			result.add(arr[i]);
+		}
+		return result;
+
+	}
+
+	//prim algorithm 
+	//per implementare questa funzione è stato usato l'algoritmo di Prim
+	public Collaboration[] maximizeCollaborationsInTheTeamOf (Person actor) {
+		ArrayList<Person> team = getTeamArrayList(actor);
+		ArrayList<Person> visited = new ArrayList<>();
+		ArrayList<Collaboration> collaborations = new ArrayList<>();
+		ArrayList<Person> adjacent_nodes = new ArrayList<>();
+		Collaboration[] maxcollabs = null;
+		ArrayList<Collaboration> unreached_nodes = new ArrayList<>();
+		ArrayList<Collaboration> tmp_visited = new ArrayList<>();
+		ArrayList<Collaboration> tmp_indexpoint = new ArrayList<>();
+		
+		Person indexpoint = null;
+		boolean done = false;
+
+		indexpoint = actor;
+		visited.add(indexpoint);
+		
+		while (!done) {
+			if (visited.containsAll(team)) {
+				done = true;
+			} else {
+				//get adjacent nodes 
+				adjacent_nodes = getCollaborators_arrayList(indexpoint);
+
+				//controllo che i nodi adiacenti non facciano parte dei nodi visitati
+				for (int i=0; i<adjacent_nodes.size(); i=i+1) {
+					if (!(visited.contains(adjacent_nodes.get(i)))) {
+						
+						//ottengo la lista delle collaborazioni in ordine decescente
+						//(da cui naturalmente posso ottenere i nodi che posso raggiungere
+						
+						for (int j=0; j<visited.size(); j=j+1) {
+							tmp_visited.addAll(getCollaborationlist(visited.get(j)));
+						}
+						//uso le liste d'appoggio per ottenere le collaborazioni dei nodi visitati
+						//e una lista d'appoggio delle collaborazioni del punto nodo preso in considerazione
+						tmp_indexpoint = getCollaborationlist(indexpoint);
+						
+						tmp_indexpoint.addAll(tmp_visited);
+						
+						unreached_nodes = orderCollabs(tmp_indexpoint);
+
+					}
+				}
+				
+				//devo scegliere quale nodo aggiungere al MST
+				//di default scelgo il primo elemento (perché essendo unreached_nodes
+				//una lista ordinata in ordine decrescente, secondo il valore dello score
+				
+				//nel caso il primo elemento della lista ottenuta, faccia già parte
+				//della lista visited, cerco l'elemento che non appartenga a visited
+				boolean found = false;
+				if (!(visited.contains(unreached_nodes.get(0).getActorB()))) {
+					collaborations.add(unreached_nodes.get(0));
+					visited.add(unreached_nodes.get(0).getActorB());
+				
+					indexpoint = (unreached_nodes.get(0).getActorB());
+				
+				} else {
+					int i = 1;
+					while ((i<unreached_nodes.size()) && (!found)) {
+						if (!(visited.contains(unreached_nodes.get(i).getActorB()))) {
+							collaborations.add(unreached_nodes.get(i));
+							visited.add(unreached_nodes.get(i).getActorB());
+							indexpoint = (unreached_nodes.get(i).getActorB());
+							found = true;
+						}
+
+						i=i+1;
+					}
+				}
+			}
+		}
+
+		if (!collaborations.isEmpty()) {
+			maxcollabs = new Collaboration[collaborations.size()];
+			for (int i=0; i<collaborations.size(); i=i+1) {
+				maxcollabs[i] = collaborations.get(i);
+			}
+		}
+
+		return maxcollabs;
+
+	}
 
 }
