@@ -48,7 +48,7 @@ public class MovidaCore implements IMovidaDB, IMovidaSearch, IMovidaConfig, IMov
 	@Override
 	public Collaboration[] maximizeCollaborationsInTheTeamOf(Person actor) {
 		// TODO Auto-generated method stub
-		return null;
+		return collaborationgraph.maximizeCollaborationsInTheTeamOf(actor);
 	}
 
 	@Override
