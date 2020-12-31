@@ -233,25 +233,28 @@ public class MovidaCore implements IMovidaDB, IMovidaSearch, IMovidaConfig, IMov
 		// TODO Auto-generated method stub
 		Movie[] result= movies.getMovies();
 		Person[] actors= new Person[countPeople()];
-		Person tmpActiveActors;
 		Person[] activeActors= new Person[N];
 
-		int k=0;
-		if (actors != null) {
+		if(result!= null){
+			int k=0;
 			for (int i=0; i<movies.getMovies().length; i=i+1) {
 				for (int j=0; j<movies.getMovies()[i].getCast().length;j=j+1) {
-					actors[k] = movies.getMovies()[i].getCast()[j];
-					k=k+1;
+					if (Arrays.equals(movies.getMovies()[i].getCast(), movies.getMovies()[j].getCast())){
+						actors[k] = movies.getMovies()[i].getCast()[j];
+						k=k+1;
+				}
+
 				}
 
 			}
-		}
-		return actors;
 
-		//if(result!= null)
-		//else
+			for (int z=0; z<N; z++){
+				activeActors[z]= actors[z];
 
-		//return null;
+			}
+			return activeActors;
+		} else
+		return null;
 	}
 
 
