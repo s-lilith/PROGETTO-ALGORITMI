@@ -79,7 +79,7 @@ Possiamo avere che un attore può avere collaborato con più di un attore, per q
 Sono state implementate alcune funzioni di base che potessero permettere di poter lavorare con la struttura dati, come Add, che aggiunge i vari vertici al grafo.
 La funzione InsertMovieGraph, grazie alla quale posso creare gli archi sul grafo. 
 
-GetCollaborators, è una funzione che attraversa il grafo, cerca l’elemento che corrisponde al parametro passato e ne restituisce i collaboratori. Tenendo conto che il collaboratore A, è l’attore passato da input, abbiamo che i suoi collaboratori, sono i collaboratori B. (Per definizione collaborazione è formata da un attoreA e un attoreB).
+GetCollaborators(Person actor), è una funzione che attraversa il grafo, cerca l’elemento che corrisponde al parametro passato e ne restituisce i collaboratori. Tenendo conto che il collaboratore A, è l’attore passato da input, abbiamo che i suoi collaboratori, sono i collaboratori B. (Per definizione collaborazione è formata da un attoreA e un attoreB).
 
 GetTeam(Person actor), in questa funzione vengono restituiti tutti i collaboratori diretti e indiretti del parametro passato in input. 
 Variabili importanti nel codice:
@@ -110,10 +110,4 @@ Una volta inizializzato le varie variabili, si ha un ciclo while nel quale:
 -Per scegliere il nodo successivo da inserire nel MST, viene deciso di default l’elemento 0-esimo della lista (dato che la lista è già in ordine e stiamo costruendo un MST), però può succedere che l’elemento 0-esimo appartenga già alla lista visited, in questo caso, cerchiamo un altro elemento che non appartenga alla lista, così da sceglierlo come nodo successivo per costruire l’MST.
 -una volta che viene scelto l’elemento da aggiungere, viene aggiornato l’indexpoint, viene salvata la collaborazione scelta e viene aggiunto il nodo scelto, nella lista visited.
 -L’algoritmo si conclude quando tutti gli elementi di visited sono uguali agli elementi del team. 
-
-
-
-
-
-
 
