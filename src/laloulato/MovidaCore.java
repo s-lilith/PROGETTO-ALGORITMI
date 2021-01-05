@@ -8,9 +8,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Scanner;
+import java.util.*;
 
 import commons.Collaboration;
 import commons.IMovidaCollaborations;
@@ -35,13 +33,13 @@ public class MovidaCore implements IMovidaDB, IMovidaSearch, IMovidaConfig, IMov
 
 	@Override
 	public Person[] getDirectCollaboratorsOf(Person actor) {
-		// TODO Auto-generated method stub
+		//  Auto-generated method stub
 		return collaborationgraph.getCollaborators(actor);
 	}
 
 	@Override
 	public Person[] getTeamOf(Person actor) {
-		// TODO Auto-generated method stub
+		//  Auto-generated method stub
 		return collaborationgraph.getTeam(actor);
 	}
 
@@ -232,29 +230,122 @@ public class MovidaCore implements IMovidaDB, IMovidaSearch, IMovidaConfig, IMov
 	public Person[] searchMostActiveActors(Integer N) {
 		// TODO Auto-generated method stub
 		Movie[] result= movies.getMovies();
-		Person[] actors= new Person[countPeople()];
+		Person[] actors = getActors();
 		Person[] activeActors= new Person[N];
 
-		if(result!= null){
-			int k=0;
-			for (int i=0; i<movies.getMovies().length; i=i+1) {
-				for (int j=0; j<movies.getMovies()[i].getCast().length;j=j+1) {
-					if (Arrays.equals(movies.getMovies()[i].getCast(), movies.getMovies()[j].getCast())){
-						actors[k] = movies.getMovies()[i].getCast()[j];
-						k=k+1;
+		for (Person i: actors){
+			for (Movie j: result){
+				for (Person k: j.getCast()){
+					if (i.getName().equals(k.getName()))
+						i.moviesCount();
 				}
-
-				}
-
 			}
+		}
+		for (int l=1; l<actors.length; l++){
+			boolean change= false;
+			for (int m=1; m<=actors.length-l; m++){
+				if (actors[m-1].getPlayedMovies() < actors[m].getPlayedMovies()){
+					Person tmp= actors[m-1];
+					actors[m-1]= actors[m];
+					actors[m]= tmp;
+					change= true;
+				}
+			}
+			if (!change) break;
+		}
+		for (int s=0; s<activeActors.length; s++){
+			activeActors[s]= actors[s];
+		}
+		return activeActors;
 
-			for (int z=0; z<N; z++){
-				activeActors[z]= actors[z];
-
+		/*if(result!= null){
+			for(int i=0; i< result.length; i++){
+				for (int j=0; j<result.length; j++){
+					if(!Objects.equals(actors[i].getName(), actors[i].getName())){
+						tmp=actors[i];
+						actors[i]= actors[j];
+						actors[j]= (Person) tmp;
+					}
+				}
+			}
+			int z=0;
+			while (z<N) {
+				activeActors[z] = actors[z];
+				z++;
 			}
 			return activeActors;
+
 		} else
-		return null;
+			return null;*/
+	}
+
+	public int countActors() {
+		// TODO Auto-generated method stub
+		int conta = 0;
+		Movie [] result = movies.getMovies();
+		Boolean Bool=false;
+		List<String> people= new ArrayList<>();
+
+		//if (result!=null) {
+			for (int i=0; i<result.length; i++) {
+				for (int j = 0; j < result[i].getCast().length; j++) {
+					people.add(result[i].getCast()[j].getName());
+				}
+			}
+			for (int k=0; k<people.size(); k++){
+				for (int j=k+1; j<people.size(); j++){
+					if (people.get(k).equals(people.get(j))){
+						Bool= true;
+						break;
+					} else {
+						Bool= false;
+					}
+				}
+				if (!Bool)
+					conta++;
+				}
+				/*if (result[i].equals(result[j])){
+						Bool= true;
+						break;
+					}
+					else { Bool=false;}
+
+					conta = result[i].getCast().length + conta;
+					conta = conta+1;*/
+
+			//}
+		return conta;
+	}
+
+	public Person[] getActors() {
+		// TODO Auto-generated method stub
+		int index= countActors();
+		Person[] actors = new Person[index];
+		List<String> newActors= new ArrayList<>();
+		//int k=0;
+		//lista attori
+		for (int i=0; i<movies.getMovies().length; i++) {
+			for (int j=0; j<movies.getMovies()[i].getCast().length;j++) {
+				newActors.add(movies.getMovies()[i].getCast()[j].getName());
+				//actors[k] = movies.getMovies()[i].getCast()[j];
+				//++;
+			}
+
+		}
+		//rimozione duplicati
+		for (int i=0; i< newActors.size(); i++){
+			for (int j=i+1; j<newActors.size(); j++){
+				if (newActors.get(i).equals(newActors.get(j))){
+					String remove = newActors.remove(j);
+				}
+			}
+		}
+		//aggiunta persone nell'array
+		for (int i=0;i<actors.length; i++){
+			Person newPeople= new Person(newActors.get(i));
+			actors[i]= newPeople;
+		}
+		return actors;
 	}
 
 

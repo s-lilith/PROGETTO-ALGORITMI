@@ -68,13 +68,19 @@ public class main {
 				System.out.println(movida.searchMostRecentMovies(9)[i].getTitle()+ " "+movida.searchMostRecentMovies(9)[i].getYear());
 			}
 
-			//prova con searchMostActiveActors - da sistemare errore, dopo il quarto film si ferma
-			System.out.println("\n Prova con searchMostActiveActors");
+			System.out.println("\n Prova con getActors");
+			for (int i=0; i<movida.getActors().length;i++)
+				System.out.println(movida.getActors()[i].getName()+ ' '+ i);
+
+		//prova con searchMostActiveActors - testato - ok
+			System.out.println("\n Prova con searchMostActiveActors= ");
 			for (int i=0; i<movida.searchMostActiveActors(9).length;i++)
 				System.out.println(movida.searchMostActiveActors(9)[i].getName());
 
 
-			
+
+
+
 	}
 
 }
