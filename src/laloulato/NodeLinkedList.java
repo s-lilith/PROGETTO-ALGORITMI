@@ -2,11 +2,11 @@ package laloulato;
 
 import commons.Movie;
 
-public class NodeLinkedList implements Comparable{
+public class NodeLinkedList implements Comparable<Object>{
 
-	/*
-	 * Node head;
-	 * 
+
+	 /*Node head;
+	 *
 	 * class Node{ int data; Node next;
 	 * 
 	 * Node(int d){ this.data=d; this.next=null; } }
@@ -21,22 +21,27 @@ public class NodeLinkedList implements Comparable{
 	}
 	
 	public NodeLinkedList() {
+
 		this(null,null);
 	}
 	
 	public Movie getMovie() {
+
 		return movie;
 	}
 	
 	public NodeLinkedList getNext() {
+
 		return next;
 	}
 	
 	public void setMovie(Movie m) {
+
 		this.movie=m;
 	}
 	
 	public void setNext(NodeLinkedList n) {
+
 		this.next=n;
 	}
 	

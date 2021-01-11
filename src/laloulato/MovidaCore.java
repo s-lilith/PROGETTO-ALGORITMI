@@ -20,12 +20,11 @@ import commons.MovidaFileException;
 import commons.Movie;
 import commons.Person;
 import commons.SortingAlgorithm;
-import laloulato.Graph;
 
 public class MovidaCore implements IMovidaDB, IMovidaSearch, IMovidaConfig, IMovidaCollaborations{
 
 	StrutturaDati movies = new BTree(); 
-	StrutturaDati movies2= new LinkedList();
+	StrutturaDati movies2= new ListaNonOrdinata();
 	Sorting sorting_algorithm = new BubbleSort();
 	Sorting sorting_algorithm2 = new MergeSort();
 	Graph collaborationgraph = new Graph();
@@ -72,14 +71,14 @@ public class MovidaCore implements IMovidaDB, IMovidaSearch, IMovidaConfig, IMov
 	@Override
 	public boolean setMap(MapImplementation m) {
 		// TODO Auto-generated method stub
-		if (m==MapImplementation.BTree && this.movies instanceof BTree) {
+		/*if (m==MapImplementation.BTree && this.movies instanceof BTree) {
 			this.movies = new BTree();
 			return true;
 		}
-		//else if (m==MapImplementation.ListaNonOrdinata && this.movies instanceof LinkedList){
-		//this.movies = new LinkedList();
-		//return true;
-		//}
+		else*/ if (m==MapImplementation.ListaNonOrdinata && this.movies instanceof ListaNonOrdinata){
+		this.movies = new ListaNonOrdinata();
+		return true;
+		}
 		else {
 			System.out.println("L'implementazione passata non e' corretta!");
 		}
@@ -615,15 +614,13 @@ public class MovidaCore implements IMovidaDB, IMovidaSearch, IMovidaConfig, IMov
 		// TODO Auto-generated method stub
 		Person[] people = new Person[countPeople()];
 		int k=0;
-		if (people!=null) {
-			for (int i=0; i<movies.getMovies().length; i=i+1) {
-				for (int j=0; j<movies.getMovies()[i].getCast().length;j=j+1) {
-					people[k] = movies.getMovies()[i].getCast()[j];
-					k=k+1;
-				}
-				people[k] = movies.getMovies()[i].getDirector();
+		for (int i=0; i<movies.getMovies().length; i=i+1) {
+			for (int j=0; j<movies.getMovies()[i].getCast().length;j=j+1) {
+				people[k] = movies.getMovies()[i].getCast()[j];
 				k=k+1;
 			}
+			people[k] = movies.getMovies()[i].getDirector();
+			k=k+1;
 		}
 		return people;
 	}
