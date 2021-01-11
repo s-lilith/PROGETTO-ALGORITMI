@@ -88,12 +88,14 @@ public class ListaNonOrdinata extends StrutturaDati{
 	  //controllo che la lista non sia vuota
 	  //se non è vuota faccio in modo che l'array sia vuoto
 
-	  if (n!=null){
+	 /* if (n!=null){
 		array[index]=n.movie;
-		getMovies_array(n.next, array, checkIndex(array));
-		/*for (int i=0;i< array.length; i++){
-			n=n.next;
-			checkIndex(array);*/
+		getMovies_array(n.next, array, checkIndex(array));*/
+	  //}
+	  while(n!= null){
+	  	array[index]=n.movie;
+	  	getMovies_array(n, array, checkIndex(array));
+	  	n=n.next;
 		}
 
 	  }
