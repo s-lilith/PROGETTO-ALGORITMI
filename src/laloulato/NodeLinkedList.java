@@ -4,13 +4,6 @@ import commons.Movie;
 
 public class NodeLinkedList implements Comparable<Object>{
 
-
-	 /*Node head;
-	 *
-	 * class Node{ int data; Node next;
-	 * 
-	 * Node(int d){ this.data=d; this.next=null; } }
-	 */
 	
 	public Movie movie;
 	public NodeLinkedList next;
