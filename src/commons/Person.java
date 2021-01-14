@@ -8,6 +8,8 @@
 */
 package commons;
 
+import java.lang.reflect.Array;
+
 /**
  * Classe usata per rappresentare una persona, attore o regista,
  * nell'applicazione Movida.
@@ -23,6 +25,7 @@ package commons;
 public class Person {
 
 	private String name;
+	Integer playedMovies=0;
 	
 	public Person(String name) {
 		this.name = name;
@@ -56,6 +59,12 @@ public class Person {
 			return false;
 		return true;
 	}
-	
-	
+
+	public Integer moviesCount(){
+		return this.playedMovies++;
+	}
+
+	public Integer getPlayedMovies(){
+		return playedMovies;
+	}
 }
