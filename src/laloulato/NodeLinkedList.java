@@ -14,6 +14,10 @@ public class NodeLinkedList implements Comparable<Object>{
 	
 	public Movie movie;
 	public NodeLinkedList next;
+	public NodeLinkedList (Movie m) {
+		this.movie = m;
+		next = null;
+	}
 	
 	public NodeLinkedList(Movie m, NodeLinkedList n){
 		this.movie=m;

@@ -70,12 +70,12 @@ public class MovidaCore implements IMovidaDB, IMovidaSearch, IMovidaConfig, IMov
 
 	@Override
 	public boolean setMap(MapImplementation m) {
-		// TODO Auto-generated method stub
+		//  Auto-generated method stub
 		/*if (m==MapImplementation.BTree && this.movies instanceof BTree) {
 			this.movies = new BTree();
 			return true;
 		}
-		else*/ if (m==MapImplementation.ListaNonOrdinata && this.movies instanceof ListaNonOrdinata){
+		else*/ if (m==MapImplementation.ListaNonOrdinata){
 		this.movies = new ListaNonOrdinata();
 		return true;
 		}
@@ -257,25 +257,6 @@ public class MovidaCore implements IMovidaDB, IMovidaSearch, IMovidaConfig, IMov
 		}
 		return activeActors;
 
-		/*if(result!= null){
-			for(int i=0; i< result.length; i++){
-				for (int j=0; j<result.length; j++){
-					if(!Objects.equals(actors[i].getName(), actors[i].getName())){
-						tmp=actors[i];
-						actors[i]= actors[j];
-						actors[j]= (Person) tmp;
-					}
-				}
-			}
-			int z=0;
-			while (z<N) {
-				activeActors[z] = actors[z];
-				z++;
-			}
-			return activeActors;
-
-		} else
-			return null;*/
 	}
 
 	public int countActors() {
@@ -285,7 +266,6 @@ public class MovidaCore implements IMovidaDB, IMovidaSearch, IMovidaConfig, IMov
 		Boolean Bool=false;
 		List<String> people= new ArrayList<>();
 
-		//if (result!=null) {
 			for (int i=0; i<result.length; i++) {
 				for (int j = 0; j < result[i].getCast().length; j++) {
 					people.add(result[i].getCast()[j].getName());
@@ -303,16 +283,7 @@ public class MovidaCore implements IMovidaDB, IMovidaSearch, IMovidaConfig, IMov
 				if (!Bool)
 					conta++;
 				}
-				/*if (result[i].equals(result[j])){
-						Bool= true;
-						break;
-					}
-					else { Bool=false;}
 
-					conta = result[i].getCast().length + conta;
-					conta = conta+1;*/
-
-			//}
 		return conta;
 	}
 
@@ -321,13 +292,11 @@ public class MovidaCore implements IMovidaDB, IMovidaSearch, IMovidaConfig, IMov
 		int index= countActors();
 		Person[] actors = new Person[index];
 		List<String> newActors= new ArrayList<>();
-		//int k=0;
+
 		//lista attori
 		for (int i=0; i<movies.getMovies().length; i++) {
 			for (int j=0; j<movies.getMovies()[i].getCast().length;j++) {
 				newActors.add(movies.getMovies()[i].getCast()[j].getName());
-				//actors[k] = movies.getMovies()[i].getCast()[j];
-				//++;
 			}
 
 		}
@@ -603,8 +572,7 @@ public class MovidaCore implements IMovidaDB, IMovidaSearch, IMovidaConfig, IMov
 	@Override
 	public Movie[] getAllMovies() {
 		// TODO Auto-generated method stub
-		Movie[] result = movies.getMovies();
-		return result;
+		return movies.getMovies();
 	}
 
 
