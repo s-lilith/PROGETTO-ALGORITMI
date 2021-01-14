@@ -5,7 +5,7 @@ import java.util.Arrays;
 
 import commons.MapImplementation;
 import commons.Person;
-import jdk.swing.interop.SwingInterOpUtils;
+import commons.SortingAlgorithm;
 
 public class main {
 
@@ -13,10 +13,14 @@ public class main {
 		// TODO Auto-generated method stub
 		MovidaCore movida = new MovidaCore();
 
+		//impostazione della struttura dati: Lista non ordinata
+		System.out.println("La struttura dati caricata e' la lista ordinata: "+ movida.setMap(MapImplementation.ListaNonOrdinata));
+		
+		//impostazione della struttura dati: BTree
+		//System.out.println("La struttura dati caricata e' il BTree: "+ movida.setMap(MapImplementation.BTree));
 
-		System.out.println(movida.setMap(MapImplementation.ListaNonOrdinata));
-
-		movida.loadFromFile(new File("prova.txt"));
+		movida.loadFromFile(new File("prova.txt")); //ho caricato il file scritto dalla funzione
+		
 
 
 		Person p1 = new Person("Sela Ward");
@@ -24,7 +28,7 @@ public class main {
 		//prova con linkedList
 
 		//getAllMovies
-
+		
 		System.out.println("\n Prova con getAllMovies");
 		for (int i = 0; i < movida.getAllMovies().length; i = i + 1) {
 			System.out.println(movida.getAllMovies()[i].getTitle() + " " + i);
@@ -55,28 +59,6 @@ public class main {
 
 		}
 
-			//////////////////prova con graph
-
-			//ok - testato - ok
-			System.out.println("\n Prova stampa grafo con getDirectCollaborators of: " + p1.getName());
-			for (int i=0; i<movida.getDirectCollaboratorsOf(p1).length; i=i+1) {
-				System.out.println(movida.getDirectCollaboratorsOf(p1)[i].getName());
-			}
-
-			//prova con getTeam - testato - ok
-			System.out.println("\n Prova con grafo, getTeamOf: "+ p1.getName());
-			for (int i=0; i<movida.getTeamOf(p1).length; i=i+1) {
-				System.out.println(movida.getTeamOf(p1)[i].getName());
-			}
-			System.out.println("\n");
-			//prova con maximizeCollaboration - testato ok
-			System.out.println("prova con maximize");
-			for (int i=0; i<movida.maximizeCollaborationsInTheTeamOf(p1).length; i=i+1) {
-				System.out.println(movida.maximizeCollaborationsInTheTeamOf(p1)[i].getActorB().getName());
-			}
-			System.out.println("fine prova con maximize");
-			System.out.println("\n");
-
 			//prova con searchMostRecentMovies - testato - ok
 			System.out.println("\n Prova con searchMostRecentMovies");
 			for(int i=0; i<movida.searchMostRecentMovies(9).length; i++){
@@ -95,10 +77,39 @@ public class main {
 
 			System.out.println("\n Prova con deleteMovieByTitle");
 				System.out.println(movida.deleteMovieByTitle("Cape Fear"));
-			}
+			
 
-			
-			
+				////////////Test grafi ////////////// Ok
+				
+				//ok - testato - ok
+				System.out.println("\n Prova stampa grafo con getDirectCollaborators of: " + p1.getName());
+				for (int i=0; i<movida.getDirectCollaboratorsOf(p1).length; i=i+1) {
+				System.out.println(movida.getDirectCollaboratorsOf(p1)[i].getName()); 
+				} 
+				
+				//prova con getTeam - testato - ok
+				System.out.println("\n Prova con grafo, getTeamOf: "+ p1.getName());
+				for (int i=0; i<movida.getTeamOf(p1).length; i=i+1) {
+					System.out.println(movida.getTeamOf(p1)[i].getName());
+				}
+				System.out.println("\n");
+				//prova con maximizeCollaboration - testato ok 
+				System.out.println("prova con maximize");
+				for (int i=0; i<movida.maximizeCollaborationsInTheTeamOf(p1).length; i=i+1) {
+					System.out.println(movida.maximizeCollaborationsInTheTeamOf(p1)[i].getActorB().getName());
+				}
+				System.out.println("fine prova con maximize");
+				System.out.println("\n");
+
+				//impostazione degli algoritmi di ordinamento 
+				//MergeSort
+				//System.out.println("L'algoritmo di ordinamento MergeSort: "+ movida.setSort(SortingAlgorithm.MergeSort));
+				
+				//BubbleSort
+				//System.out.println("L'algoritmo di ordinamento BubbleSort: "+ movida.setSort(SortingAlgorithm.BubbleSort));
+
+
+				
 			
 			/*
 			movida.loadFromFile(new File("prova.txt"));
@@ -131,46 +142,10 @@ public class main {
 			for (int i=0; i<movida.searchMoviesByTitle("ciao").length; i=i+1) {
 				System.out.println(movida.searchMoviesByTitle("ciao")+ " " + i);
 			}
-
-			//////////////////prova con graph
-			
-			//ok - testato - ok
-			System.out.println("\n Prova stampa grafo con getDirectCollaborators of: " + p1.getName());
-			for (int i=0; i<movida.getDirectCollaboratorsOf(p1).length; i=i+1) {
-			System.out.println(movida.getDirectCollaboratorsOf(p1)[i].getName()); 
-			} 
-			
-			//prova con getTeam - testato - ok
-			System.out.println("\n Prova con grafo, getTeamOf: "+ p1.getName());
-			for (int i=0; i<movida.getTeamOf(p1).length; i=i+1) {
-				System.out.println(movida.getTeamOf(p1)[i].getName());
-			}
-			System.out.println("\n");
-			//prova con maximizeCollaboration - testato ok 
-			System.out.println("prova con maximize");
-			for (int i=0; i<movida.maximizeCollaborationsInTheTeamOf(p1).length; i=i+1) {
-				System.out.println(movida.maximizeCollaborationsInTheTeamOf(p1)[i].getActorB().getName());
-			}
-			System.out.println("fine prova con maximize");
-			System.out.println("\n");
-
-			//prova con searchMostRecentMovies - testato - ok
-			System.out.println("\n Prova con searchMostRecentMovies");
-			for(int i=0; i<movida.searchMostRecentMovies(9).length; i++){
-				System.out.println(movida.searchMostRecentMovies(9)[i].getTitle()+ " "+movida.searchMostRecentMovies(9)[i].getYear());
-			}
-
-			System.out.println("\n Prova con getActors");
-			for (int i=0; i<movida.getActors().length;i++)
-				System.out.println(movida.getActors()[i].getName()+ ' '+ i);
-
-		//prova con searchMostActiveActors - testato - ok
-			System.out.println("\n Prova con searchMostActiveActors= ");
-			for (int i=0; i<movida.searchMostActiveActors(9).length;i++)
-				System.out.println(movida.searchMostActiveActors(9)[i].getName());
+		
 			*/
 
-
+	}
 
 }
 
